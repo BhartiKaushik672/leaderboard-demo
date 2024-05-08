@@ -41,6 +41,9 @@ public class PlayerService {
 
     @SneakyThrows
     public void submitScore(String playerName, int score) {
+        if(!common.checkIfPlayerAlreadyExists(playerName)){
+            throw new RuntimeException("Player does not exist. Please login first");
+        }
         scoreProducer.sendScore(playerName, score);
     }
 

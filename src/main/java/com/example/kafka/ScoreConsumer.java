@@ -59,6 +59,7 @@ public class ScoreConsumer {
                 logger.info("Message consumed in SQL: {}", message);
             } else {
                 logger.error("User does not exist: {}", playerName);
+                throw new Exception(String.format("User does not exist : %s",playerName));
             }
         } catch (Exception e) {
             logger.error("Error processing Kafka message for SQL", e);
@@ -67,7 +68,7 @@ public class ScoreConsumer {
 
     private void updateTopScores(String playerName, int score) {
         try {
-            String sortedSetKey = "players-top-scores";
+            String sortedSetKey = "players-top-scores-leaderboard";
             redisTemplate.opsForZSet().add(sortedSetKey, playerName, score);
         } catch (Exception e) {
             logger.error("Error updating top scores in Redis", e);

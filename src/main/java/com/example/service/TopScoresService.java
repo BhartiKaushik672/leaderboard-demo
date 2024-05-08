@@ -40,7 +40,7 @@ public class TopScoresService {
     // Inside the retrieveLeaderboardEntries method
     private List<LeaderboardEntryDTO> retrieveLeaderboardEntries(RedisConnection connection) {
         try {
-            byte[] key = "players-top-scores".getBytes(StandardCharsets.UTF_8);
+            byte[] key = "players-top-scores-leaderboard".getBytes(StandardCharsets.UTF_8);
             Set<RedisZSetCommands.Tuple> leaderboard = connection.zRevRangeWithScores(key, 0, 5);
             return mapToLeaderboardEntries(leaderboard);
         } catch (DataAccessException e) {
